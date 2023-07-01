@@ -27,8 +27,8 @@ local Section = Tab:CreateSection("Section Example")
 
 local Button = Tab:CreateButton({
 	Name = "NoFall",
-	Callback = function()
-		game.ReplicatedStorage.FallDamage:Destroy()
+	Callback = function(value)
+		game.ReplicatedStorage.FallDamage:Destroy(value)
 	end,
 })
 
