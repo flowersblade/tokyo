@@ -1,0 +1,293 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "Tokyo Hub",
+	LoadingTitle = "Tokyo Hub",
+	LoadingSubtitle = "by rukia",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = "Tokyo Hub",
+		FileName = "Tokyo Hub"
+	},
+	KeySystem = true, -- Set this to true to use their key system
+	KeySettings = {
+		Title = "Tokyo Hub",
+		Subtitle = "Key System",
+		Note = "Join the discord (.gg/)",
+		SaveKey = true,
+		Key = "EXCLUSIVEKEY449", "ex"
+	}
+})
+
+Rayfield:Notify("Title Example", "Content/Description Example", 4483362458) -- Notfication -- Title, Content, Image
+
+local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Section Example")
+
+local Button = Tab:CreateButton({
+	Name = "Button Example",
+	Callback = function()
+		-- The function that takes place when the button is pressed
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Toggle Example",
+	CurrentValue = false,
+	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		-- The function that takes place when the toggle is pressed
+    		-- The variable (Value) is a boolean on whether the toggle is true or false
+	end,
+})
+
+local Label = Tab:CreateLabel("Label Example")
+
+local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph Example"})
+
+local Input = Tab:CreateInput({
+	Name = "Input Example",
+	PlaceholderText = "Input Placeholder",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		-- The function that takes place when the input is changed
+    		-- The variable (Text) is a string for the value in the text box
+	end,
+})
+
+
+local Dropdown = Tab:CreateDropdown({
+	Name = "Dropdown Example",
+	Options = {"Option 1","Option 2"},
+	CurrentOption = "Option 1",
+	Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Option)
+	  	  -- The function that takes place when the selected option is changed
+    	  -- The variable (Option) is a string for the value that the dropdown was changed to
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Destroy UI",
+	Callback = function()
+		Rayfield:Destroy()
+	end,
+})
+
+local PlayerTab = Window:CreateTab("Player", 4483362458) -- Title, Image
+
+local walkSpeed = 50
+local jumpPower = 50
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+local speedToggle = false
+
+local Slider = PlayerTab:CreateSlider({
+	Name = "Speed Value",
+	Range = {16, 1000},
+	Increment = 16,
+	Suffix = "WalkSpeed",
+	CurrentValue = 16,
+	Flag = "SpeedValue",
+	Callback = function(value)
+        walkSpeed = value
+	end,
+})
+
+local Toggle = PlayerTab:CreateToggle({
+	Name = "Speed",
+	CurrentValue = false,
+	Flag = "Speed", 
+	Callback = function(value)
+        speedToggle = value
+	end,
+})
+
+RS.RenderStepped:Connect(function()
+    if speedToggle then
+        local moveVector = Vector3.new(0, 0, 0)
+        local camera = workspace.CurrentCamera
+        local forward = camera.CFrame.LookVector
+        local right = camera.CFrame.RightVector
+        for _, key in ipairs(UIS:GetKeysPressed()) do
+            if key.KeyCode == Enum.KeyCode.W then
+                moveVector = moveVector + forward
+            elseif key.KeyCode == Enum.KeyCode.A then
+                moveVector = moveVector - right
+            elseif key.KeyCode == Enum.KeyCode.S then
+                moveVector = moveVector - forward
+            elseif key.KeyCode == Enum.KeyCode.D then
+                moveVector = moveVector + right
+            end
+        end
+        local humanoid = game.Players.LocalPlayer.Character.Humanoid
+        if moveVector.magnitude > 0 then
+            humanoid:Move(moveVector, false)
+        end
+        humanoid.WalkSpeed = walkSpeed
+        humanoid.JumpPower = jumpPower
+    end
+end)
+
+local isEnabled = false
+_G.JP = 50
+
+local Slider = PlayerTab:CreateSlider({
+	Name = "JumpPower Value",
+	Range = {0, 1000},
+	Increment = 10,
+	Suffix = "JumpPower",
+	CurrentValue = 0,
+	Flag = "JumpPower",
+	Callback = function(value)
+	_G.JP = value
+	end,
+	    AllowDuplicateCalls = true
+})
+
+local Toggle = PlayerTab:CreateToggle({
+	Name = "JumpPower",
+	CurrentValue = false,
+	Flag = "JumpPowerToggle", 
+	Callback = function(value)
+    isEnabled = value
+  
+        if isEnabled then
+            local mt = getrawmetatable(game)
+            setreadonly(mt, false)
+            local old = mt.__newindex
+            
+            mt.__newindex = newcclosure(function(o, k, v)
+                if isEnabled and tostring(o) == "Humanoid" and tostring(k) == "JumpPower" then
+                    return old(o, k, _G.JP)
+                end
+                
+                return old(o, k, v)
+            end)
+        else
+            game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = _G.JP
+        end
+	end,
+})
+
+local Slider = PlayerTab:CreateSlider({
+	Name = "Fly Speed",
+	Range = {0, 1000},
+	Increment = 10,
+	Suffix = "Flight Speed",
+	CurrentValue = 0,
+	Flag = "FlightSpeed",
+	Callback = function(value)
+		flySpeed = value
+	end,
+})
+
+local Toggle = PlayerTab:CreateToggle({
+	Name = "Fly",
+	CurrentValue = false,
+	Flag = "Fly", 
+	Callback = function(value)
+		Fly = value
+	end,
+})
+
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+
+end)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if Fly then
+        local char = game:GetService("Players").LocalPlayer.Character
+        local lookVector = (game:GetService("Workspace").CurrentCamera.Focus.p - game:GetService("Workspace").CurrentCamera.CFrame.p).Unit
+        local velocity = Vector3.new()
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.W) then
+            velocity = velocity + lookVector * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.S) then
+            velocity = velocity - lookVector * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) then
+            velocity = velocity - Vector3.new(-lookVector.Z, 0, lookVector.X) * flySpeed
+        end
+        if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) then
+            velocity = velocity + Vector3.new(-lookVector.Z, 0, lookVector.X) * flySpeed
+        end
+        char.HumanoidRootPart.Velocity = velocity
+    end
+end)
+
+local FunTab = Window:CreateTab("Fun", 4483362458) -- Title, Image
+
+local targetn = ""
+local Input = FunTab:CreateInput({
+    Name = "Molten Thingy Mingy",
+    PlaceholderText = "PlayerUsername",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Text)
+    
+targetn = Text
+    end,
+})
+local gauntlet = game.Players.LocalPlayer.Character.Torso.LavaGauntlet11
+local waitrq = false
+local enable = false
+local Uis = game:GetService("UserInputService")
+local used = false
+local connection2
+
+connection2 = Uis.InputBegan:Connect(function(Input,IsTyping)
+    if used == true then
+        connection2:Disconnect()
+    end
+    if IsTyping then return end
+    if Input.KeyCode == Enum.KeyCode.F5 then
+        if enable == false then
+            enable = true
+        else
+            used = true
+            enable = false
+        end
+    end
+end)
+
+local connection
+
+connection = game:GetService("RunService").RenderStepped:Connect(function()
+    if enable == false then return end
+    if targetn == "" or targetn == nil then return end
+    local target = workspace.Live:FindFirstChild(targetn) -- target username
+    if target then
+        if waitrq == true then return end
+        waitrq = true
+        gauntlet:SetPrimaryPartCFrame(target.Torso.CFrame)
+        task.wait(0.05)
+        waitrq = false
+    end
+end)
+
+
+-- Extras
+
+-- getgenv().SecureMode = true -- Only Set To True If Games Are Detecting/Crashing The UI
+
+-- Rayfield:Destroy() -- Destroys UI
+
+-- Rayfield:LoadConfiguration() -- Enables Configuration Saving
+
+-- Section:Set("Section Example") -- Use To Update Section Text
+
+-- Button:Set("Button Example") -- Use To Update Button Text
+
+-- Toggle:Set(false) -- Use To Update Toggle
+
+-- Slider:Set(10) -- Use To Update Slider Value
+
+-- Label:Set("Label Example") -- Use To Update Label Text
+
+-- Paragraph:Set({Title = "Paragraph Example", Content = "Paragraph Example"}) -- Use To Update Paragraph Text
+
+-- Keybind:Set("RightCtrl") -- Keybind (string) -- Use To Update Keybind
+
+-- Dropdown:Set("Option 2") -- The new option value -- Use To Update/Set New Dropdowns
