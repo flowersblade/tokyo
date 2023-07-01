@@ -85,8 +85,8 @@ local speedToggle = false
 
 local Slider = PlayerTab:CreateSlider({
 	Name = "Speed Value",
-	Range = {16, 1000},
-	Increment = 16,
+	Range = {16, 250},
+	Increment = 10,
 	Suffix = "WalkSpeed",
 	CurrentValue = 16,
 	Flag = "SpeedValue",
@@ -135,7 +135,7 @@ _G.JP = 50
 
 local Slider = PlayerTab:CreateSlider({
 	Name = "JumpPower Value",
-	Range = {0, 1000},
+	Range = {16, 250},
 	Increment = 10,
 	Suffix = "JumpPower",
 	CurrentValue = 0,
@@ -173,7 +173,7 @@ local Toggle = PlayerTab:CreateToggle({
 
 local Slider = PlayerTab:CreateSlider({
 	Name = "Fly Speed",
-	Range = {0, 1000},
+	Range = {0, 250},
 	Increment = 10,
 	Suffix = "Flight Speed",
 	CurrentValue = 0,
