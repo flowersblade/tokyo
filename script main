@@ -254,7 +254,7 @@ local Toggle = VisualsTab:CreateToggle({
 	end,
 })
 
-local FunTab = Window:CreateTab("Other", 4483362458) -- Title, Image
+local FunTab = Window:CreateTab("Fun", 4483362458) -- Title, Image
 
 local Button = FunTab:CreateButton({
 	Name = "Lag Script",
