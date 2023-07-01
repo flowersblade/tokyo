@@ -148,7 +148,7 @@ local Toggle = PlayerTab:CreateToggle({
 
 local Slider = PlayerTab:CreateSlider({
 	Name = "Fly Speed",
-	Range = {0, 250},
+	Range = {10, 250},
 	Increment = 10,
 	Suffix = "Flight Speed",
 	CurrentValue = 0,
