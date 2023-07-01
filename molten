@@ -303,6 +303,22 @@ connection = game:GetService("RunService").RenderStepped:Connect(function()
     end
 end)
 
+local Button = FunTab:CreateButton({
+	Name = "Lag Script",
+	Callback = function(value)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/lag%20script"))()
+	end,
+})
+
+local OtherTab = Window:CreateTab("Other", 4483362458) -- Title, Image
+
+local Button = OtherTab:CreateButton({
+	Name = "Infinite Yield FE",
+	Callback = function(value)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/infinite%20yield%20fe"))()
+	end,
+})
+
 
 -- Extras
 
