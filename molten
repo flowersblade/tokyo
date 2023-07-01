@@ -1,17 +1,17 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 
 local Window = Rayfield:CreateWindow({
-	Name = "Tokyo Hub",
-	LoadingTitle = "Tokyo Hub",
+	Name = "Rukia Hub",
+	LoadingTitle = "Rukia Hub",
 	LoadingSubtitle = "by rukia",
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = "Tokyo Hub",
-		FileName = "Tokyo Hub"
+		FolderName = "Rukia Hub",
+		FileName = "Rukia Hub"
 	},
 	KeySystem = true, -- Set this to true to use their key system
 	KeySettings = {
-		Title = "Tokyo Hub",
+		Title = "Rukia Hub",
 		Subtitle = "Key System",
 		Note = "Join the discord (.gg/)",
 		SaveKey = true,
