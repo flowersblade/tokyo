@@ -908,8 +908,7 @@ end)
 local Button = FunTab:CreateButton({
 	Name = "Lag Script",
 	Callback = function(value)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/lag%20script"))()
-	end,
+end,
 })
 
 local OtherTab = Window:CreateTab("Other", 4483362458) -- Title, Image
