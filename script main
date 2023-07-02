@@ -47,6 +47,17 @@ game.Workspace.NoSpellZone:Destroy()
 	end,
 })
 
+local Button = Tab:CreateButton({
+	Name = "Anti-fire (must click after every death)",
+	Callback = function(value)
+while true do
+    task.wait(0.1)
+game.Players.LocalPlayer.Character.Values.OnFire.Value = true
+    game.ReplicatedStorage.Dash:FireServer()
+end
+	end,
+})
+
 local Dropdown = Tab:CreateDropdown({
 	Name = "Dropdown Example",
 	Options = {"Option 1","Option 2"},
