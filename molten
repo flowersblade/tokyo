@@ -855,51 +855,6 @@ local Toggle = VisualsTab:CreateToggle({
 	end,
 })
 
-
-local FunTab = Window:CreateTab("Fun", 4483362458) -- Title, Image
-
-local Button = FunTab:CreateButton({
-	Name = "Lag Script",
-	Callback = function(value)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/lag%20script"))()
-	end,
-})
-
-local OtherTab = Window:CreateTab("Other", 4483362458) -- Title, Image
-
-local Button = OtherTab:CreateButton({
-	Name = "Infinite Yield FE",
-	Callback = function(value)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/flowersblade/tokyo/main/infinite%20yield%20fe"))()
-	end,
-})
-
--- Extras
-
--- getgenv().SecureMode = true -- Only Set To True If Games Are Detecting/Crashing The UI
-
--- Rayfield:Destroy() -- Destroys UI
-
--- Rayfield:LoadConfiguration() -- Enables Configuration Saving
-
--- Section:Set("Section Example") -- Use To Update Section Text
-
--- Button:Set("Button Example") -- Use To Update Button Text
-
--- Toggle:Set(false) -- Use To Update Toggle
-
--- Slider:Set(10) -- Use To Update Slider Value
-
--- Label:Set("Label Example") -- Use To Update Label Text
-
--- Paragraph:Set({Title = "Paragraph Example", Content = "Paragraph Example"}) -- Use To Update Paragraph Text
-
--- Keybind:Set("RightCtrl") -- Keybind (string) -- Use To Update Keybind
-
--- Dropdown:Set("Option 2") -- The new option value -- Use To Update/Set New Dropdowns
-
-
-
 local FunTab = Window:CreateTab("Fun", 4483362458) -- Title, Image
 
 local targetn = ""
